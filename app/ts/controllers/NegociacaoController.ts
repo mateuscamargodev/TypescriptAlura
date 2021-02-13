@@ -4,12 +4,15 @@ class NegociacaoController {
     private _inputQuantidade: HTMLInputElement;
     private _inputValor: HTMLInputElement;
     private _negociacoes: Negociacoes = new Negociacoes();
+    private _listaNegociacoes: ListaNegociacoes = new ListaNegociacoes('#negociacoes-view');
+    private _mensagemView: MensagemView = new MensagemView('#mensagemView');
 
     constructor() {
 
         this._inputData = <HTMLInputElement>document.querySelector('#data');
         this._inputQuantidade = <HTMLInputElement>document.querySelector('#quantidade');
         this._inputValor = <HTMLInputElement>document.querySelector('#valor');
+        this._listaNegociacoes.update(this._negociacoes);
     }
 
     adiciona(event: Event) {
@@ -26,10 +29,8 @@ class NegociacaoController {
 
         this._negociacoes.adiciona(negociacao);
 
-        this._negociacoes.paraArray().forEach(function(negociacao){
-            console.log(negociacao.getData());
-            console.log(negociacao.getQuantidade());
-            console.log(negociacao.getValor());
-        })
+        this._listaNegociacoes.update(this._negociacoes);
+
+        this._mensagemView.update('Negociação adicionada com sucesso!');
     }
 }
