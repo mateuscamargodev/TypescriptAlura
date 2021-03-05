@@ -1,15 +1,31 @@
-class View<T> {
-    protected _elemento: Element;
+import { logarTempoDeExecucao } from "../helpers/decorators/index";
 
-    constructor(seletor){
-        this._elemento = document.querySelector(seletor);
+export abstract class View<T> {
+    private _elemento: Element;
+    private _escapar: boolean;
+
+    constructor(seletor: string, escapar: boolean = false){
+        this._elemento = <Element>document.querySelector(seletor);
+        this._escapar = escapar;
     }
 
-    update(model: T) {
-        this._elemento.innerHTML = this.template(model);
+    @logarTempoDeExecucao()
+    update(model: T): void {
+        let template = this.template(model);
+        if(this._escapar) {
+            template = template.replace(/<script>[\s\S]*?<\/script>/, '');
+        }
+
+        this._elemento.innerHTML =  this.template(model);
+    }
+    /**
+     * Oculta o template depois de um determinado tempo (parâmetro delay).
+     * @param delay tempo em milisegundos.
+     */
+    ocultarTemplate(delay: number): void {        
+        let elemento = this._elemento;
+        setTimeout(function(){elemento.innerHTML=""}, delay);
     }
 
-    template(model: T): string {
-        throw new Error('Você deve implementar o método template');
-    }
+    abstract template(model: T): string;
 }

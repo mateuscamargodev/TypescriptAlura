@@ -1,6 +1,17 @@
-class ListaNegociacoes extends View {
-    template(model) {
-        return `
+System.register(["./View"], function (exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
+    var View_1, ListaNegociacoes;
+    return {
+        setters: [
+            function (View_1_1) {
+                View_1 = View_1_1;
+            }
+        ],
+        execute: function () {
+            ListaNegociacoes = class ListaNegociacoes extends View_1.View {
+                template(model) {
+                    return `
             <table class="table table-hover table-bordered">
                <thead>
                   <tr>
@@ -14,9 +25,9 @@ class ListaNegociacoes extends View {
                <tbody>
                   ${model.paraArray().map(negociacao => `
                         <tr>
-                           <td>${negociacao.getData().getDate()}/${negociacao.getData().getMonth() + 1}/${negociacao.getData().getFullYear()}</td>
-                           <td>${negociacao.getQuantidade()}</td>
-                           <td>${negociacao.getValor()}</td>
+                           <td>${negociacao.data.getDate()}/${negociacao.data.getMonth() + 1}/${negociacao.data.getFullYear()}</td>
+                           <td>${negociacao.quantidade}</td>
+                           <td>${negociacao.valor}</td>
                            <td>${negociacao.getVolume()}</td>
                         </tr>
                      `).join('')}
@@ -27,5 +38,9 @@ class ListaNegociacoes extends View {
                </tfoot>
             </table>               
          `;
-    }
-}
+                }
+            };
+            exports_1("ListaNegociacoes", ListaNegociacoes);
+        }
+    };
+});

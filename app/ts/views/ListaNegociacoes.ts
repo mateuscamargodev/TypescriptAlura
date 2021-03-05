@@ -1,4 +1,7 @@
-class ListaNegociacoes extends View<Negociacoes> {
+import { View } from "./View";
+import {Negociacoes} from "models/Negociacoes";
+
+export class ListaNegociacoes extends View<Negociacoes> {
 
       template(model: Negociacoes): string {
          return `
@@ -16,9 +19,9 @@ class ListaNegociacoes extends View<Negociacoes> {
                   ${model.paraArray().map(negociacao => 
                      `
                         <tr>
-                           <td>${negociacao.getData().getDate()}/${negociacao.getData().getMonth()+1}/${negociacao.getData().getFullYear()}</td>
-                           <td>${negociacao.getQuantidade()}</td>
-                           <td>${negociacao.getValor()}</td>
+                           <td>${negociacao.data.getDate()}/${negociacao.data.getMonth()+1}/${negociacao.data.getFullYear()}</td>
+                           <td>${negociacao.quantidade}</td>
+                           <td>${negociacao.valor}</td>
                            <td>${negociacao.getVolume()}</td>
                         </tr>
                      `
